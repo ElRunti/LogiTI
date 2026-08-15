@@ -1,9 +1,11 @@
 ﻿using FleetPulse.API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace FleetPulse.API.Models
 {
     public class Package
     {
+        [Key]
         public int IdPackage { get; set; }
         public string Address { get; set; }
         public PackageStatus Status { get; set; }

@@ -1,9 +1,11 @@
-﻿using System.Data.SqlTypes;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data.SqlTypes;
 
 namespace FleetPulse.API.Models
 {
     public class Driver
     {
+        [Key]
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

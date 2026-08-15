@@ -1,7 +1,10 @@
-﻿namespace FleetPulse.API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FleetPulse.API.Models
 {
     public class Customer
     {
+        [Key]
         public int IdCustomer { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
