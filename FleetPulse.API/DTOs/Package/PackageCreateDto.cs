@@ -2,7 +2,7 @@
 
 namespace FleetPulse.API.DTOs.Package
 {
-    public class PackageCreate
+    public class PackageCreateDto
     {
         public string Address { get; set; }
         public PackageStatus Status { get; set; }
