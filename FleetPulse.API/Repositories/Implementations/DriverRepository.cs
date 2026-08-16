@@ -18,7 +18,20 @@ namespace FleetPulse.API.Repositories.Implementations
         {
             try
             {
-                await _context.Drivers.AddAsync(driver);
+                var existingDriver = await GetDriverByIdAsync(driver.Id);
+                if (existingDriver == null)
+                {
+                    throw new Exception($"A driver with ID {driver.Id} not found.");
+                }
+
+                existingDriver.FirstName = driver.FirstName;
+                existingDriver.LastName = driver.LastName;
+                existingDriver.Email = driver.Email;
+                existingDriver.PasswordHash = driver.PasswordHash;
+                existingDriver.StartTime = driver.StartTime;
+                existingDriver.EndTime = driver.EndTime;
+               
+                
                 await _context.SaveChangesAsync();
                 return driver;
             }
@@ -34,8 +47,8 @@ namespace FleetPulse.API.Repositories.Implementations
         {
             try
             {
-               var driver = GetDriverByIdAsync(id);
-                if (driver.Id == null)
+               var driver = await GetDriverByIdAsync(id);
+                if (driver == null)
                 {
                     return false; // Driver not found
                 }

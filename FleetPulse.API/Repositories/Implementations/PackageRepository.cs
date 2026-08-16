@@ -2,6 +2,7 @@
 using FleetPulse.API.Models;
 using FleetPulse.API.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.ConstrainedExecution;
 
 namespace FleetPulse.API.Repositories.Implementations
 {
@@ -24,7 +25,7 @@ namespace FleetPulse.API.Repositories.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error occurred while retrieving packages: {ex.Message}", ex);
+                throw new Exception($"An error occurred while creating the package", ex);
             }
         }
 
@@ -32,18 +33,18 @@ namespace FleetPulse.API.Repositories.Implementations
         {
             try
             {
-                var package = GetPackageByIdAsync(id);
+                var package = await GetPackageByIdAsync(id);
                 if (package == null)
                 {
                     return false; // Package not found
                 }
-                _context.Packages.Remove(package.Result);
-                _context.SaveChangesAsync();
+                _context.Packages.Remove(package);
+                await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error occurred while retrieving packages: {ex.Message}", ex);
+                throw new Exception($"An error occurred while deleting the package with ID {id}", ex);
             }
         }
 
@@ -55,7 +56,7 @@ namespace FleetPulse.API.Repositories.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error occurred while retrieving packages: {ex.Message}", ex);
+                throw new Exception($"An error occurred while retrieving all packages", ex);
             }
         }
 
@@ -67,7 +68,7 @@ namespace FleetPulse.API.Repositories.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error occurred while retrieving packages: {ex.Message}", ex);
+                throw new Exception($"An error occurred while retrieving the package with ID {id}", ex);
             }
         }
 
@@ -78,15 +79,19 @@ namespace FleetPulse.API.Repositories.Implementations
                 var  updatedPackage = await GetPackageByIdAsync(package.IdPackage);
                 if (updatedPackage == null)
                 {
-                    return null; // Package not found
+                    throw new Exception($"Package with ID {package.IdPackage} not found");
                 }
-                _context.Packages.Add(updatedPackage);
+                updatedPackage.Address = package.Address;
+                updatedPackage.Status = package.Status;
+                updatedPackage.PickupTime = package.PickupTime;
+                updatedPackage.DeliveryTime = package.DeliveryTime;
+                
                 await _context.SaveChangesAsync();
                 return updatedPackage;
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error occurred while retrieving packages: {ex.Message}", ex);
+                throw new Exception($"An error occurred while updating the package with ID {package.IdPackage}", ex);
             }
         }
     }
