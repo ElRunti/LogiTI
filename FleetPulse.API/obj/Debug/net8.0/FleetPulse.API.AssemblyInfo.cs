@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FleetPulse.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3c710a09df703af7c949f15a20ebd49d7dd8522f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+00a1207294b84a7412ab9684a26d754c8b5dfa5c")]
 [assembly: System.Reflection.AssemblyProductAttribute("FleetPulse.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FleetPulse.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
