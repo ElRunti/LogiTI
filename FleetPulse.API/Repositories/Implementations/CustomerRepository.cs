@@ -85,7 +85,13 @@ namespace FleetPulse.API.Repositories.Implementations
                 {
                     throw new Exception($"Customer with ID {customer.IdCustomer} not found.");
                 }
-                _context.Update(customer);
+                existingCustomer.FirstName = customer.FirstName;
+                existingCustomer.LastName = customer.LastName;
+                existingCustomer.Email = customer.Email;
+                existingCustomer.Phone = customer.Phone;
+                existingCustomer.City = customer.City;
+                existingCustomer.State = customer.State;
+                existingCustomer.ZipCode = customer.ZipCode;
                 await _context.SaveChangesAsync();
                 return customer;
             }
