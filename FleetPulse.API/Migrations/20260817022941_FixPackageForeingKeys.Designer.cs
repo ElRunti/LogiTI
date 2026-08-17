@@ -3,6 +3,7 @@ using System;
 using FleetPulse.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FleetPulse.API.Migrations
 {
     [DbContext(typeof(FleetPulseDbContext))]
-    partial class FleetPulseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260817022941_FixPackageForeingKeys")]
+    partial class FixPackageForeingKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,11 +82,17 @@ namespace FleetPulse.API.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdDelivery"));
 
+                    b.Property<int>("CustomerIdCustomer")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("DeliveryDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DeliveryTime")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("DriverId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("IdCustomer")
                         .HasColumnType("integer");
@@ -105,11 +114,9 @@ namespace FleetPulse.API.Migrations
 
                     b.HasKey("IdDelivery");
 
-                    b.HasIndex("IdCustomer");
+                    b.HasIndex("CustomerIdCustomer");
 
-                    b.HasIndex("IdDriver");
-
-                    b.HasIndex("IdPackage");
+                    b.HasIndex("DriverId");
 
                     b.ToTable("Deliveries");
                 });
@@ -161,6 +168,9 @@ namespace FleetPulse.API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("DeliveryIdDelivery")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("DeliveryTime")
                         .HasColumnType("timestamp without time zone");
 
@@ -178,6 +188,8 @@ namespace FleetPulse.API.Migrations
 
                     b.HasKey("IdPackage");
 
+                    b.HasIndex("DeliveryIdDelivery");
+
                     b.HasIndex("IdCustomer");
 
                     b.HasIndex("IdDriver");
@@ -189,31 +201,27 @@ namespace FleetPulse.API.Migrations
                 {
                     b.HasOne("FleetPulse.API.Models.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("IdCustomer")
+                        .HasForeignKey("CustomerIdCustomer")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FleetPulse.API.Models.Driver", "Driver")
                         .WithMany()
-                        .HasForeignKey("IdDriver")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FleetPulse.API.Models.Package", "Packages")
-                        .WithMany()
-                        .HasForeignKey("IdPackage")
+                        .HasForeignKey("DriverId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
 
                     b.Navigation("Driver");
-
-                    b.Navigation("Packages");
                 });
 
             modelBuilder.Entity("FleetPulse.API.Models.Package", b =>
                 {
+                    b.HasOne("FleetPulse.API.Models.Delivery", null)
+                        .WithMany("Packages")
+                        .HasForeignKey("DeliveryIdDelivery");
+
                     b.HasOne("FleetPulse.API.Models.Customer", "Customer")
                         .WithMany("Packages")
                         .HasForeignKey("IdCustomer")
@@ -232,6 +240,11 @@ namespace FleetPulse.API.Migrations
                 });
 
             modelBuilder.Entity("FleetPulse.API.Models.Customer", b =>
+                {
+                    b.Navigation("Packages");
+                });
+
+            modelBuilder.Entity("FleetPulse.API.Models.Delivery", b =>
                 {
                     b.Navigation("Packages");
                 });
