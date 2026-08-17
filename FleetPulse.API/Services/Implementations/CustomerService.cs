@@ -21,6 +21,7 @@ namespace FleetPulse.API.Services.Implementations
             try
             {
                 var customerModel = _mapper.Map<Customer>(customerCreateDto);
+                customerModel.PasswordHash = BCrypt.Net.BCrypt.HashPassword(customerCreateDto.Password);
                 var createdCustomer = await _customerRepository.CreateCustomerAsync(customerModel);
                 var customerDto = _mapper.Map<CustomerDto>(createdCustomer);
                 return customerDto;

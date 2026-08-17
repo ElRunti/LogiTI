@@ -12,7 +12,8 @@ namespace FleetPulse.API.Mappings
         {
             //Customer mappings
             CreateMap<Customer, CustomerDto>();
-            CreateMap<CustomerCreateDto, Customer>();
+            CreateMap<CustomerCreateDto, Customer>()
+                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
             CreateMap<CustomerUpdateDto, Customer>();
             //Package mappings
             CreateMap<Package, PackageDto>();
@@ -20,7 +21,8 @@ namespace FleetPulse.API.Mappings
             CreateMap<PackageUpdateDto, Package>();
             //Driver mappings
             CreateMap<Driver, DriverDto>();
-            CreateMap<DriverUpdateDto, Driver>();
+            CreateMap<DriverUpdateDto, Driver>()
+                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
             CreateMap<DriverCreateDto, Driver>();
             //Delivery mappings
             CreateMap<Delivery, DeliveryDto>();

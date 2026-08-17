@@ -1,5 +1,6 @@
 ﻿using FleetPulse.API.Models.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FleetPulse.API.Models
 {
@@ -12,9 +13,15 @@ namespace FleetPulse.API.Models
         public DateTime PickupTime { get; set; }
         public DateTime DeliveryTime { get; set; }
 
-       // Property navegation to the Driver entity
-       public int IdDriver { get; set; }
-       public Driver Driver { get; set; }
+        // Property navegation to the Driver entity
+        [ForeignKey("Driver")]
+        public int IdDriver { get; set; }
+        public Driver Driver { get; set; }
+        //Property navigation to the Customer entity
+
+        [ForeignKey("Customer")]
+        public int IdCustomer { get; set; }
+        public Customer Customer { get; set; }
 
     }
 }

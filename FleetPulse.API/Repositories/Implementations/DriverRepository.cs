@@ -14,7 +14,7 @@ namespace FleetPulse.API.Repositories.Implementations
             _context = context;
         }
 
-        public async Task<Driver> CreateDriverAsync(Driver driver)
+        public async Task<Driver> UpdateDriverAsync(Driver driver)
         {
             try
             {
@@ -93,11 +93,11 @@ namespace FleetPulse.API.Repositories.Implementations
             }
         }
 
-        public async Task<Driver> UpdateDriverAsync(Driver driver)
+        public async Task<Driver> CreateDriverAsync(Driver driver)
         {
             try
             {
-                _context.Drivers.Update(driver);
+                await _context.Drivers.AddAsync(driver);
                 await _context.SaveChangesAsync();
                 return driver;
             }

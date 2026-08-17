@@ -22,6 +22,7 @@ namespace FleetPulse.API.Services.Implementations
             try
             {
                 var driverModel = _mapper.Map<Driver>(driverCreateDto);
+                driverModel.PasswordHash = BCrypt.Net.BCrypt.HashPassword(driverCreateDto.Password);
                 var driverCreate = await _driverRepository.CreateDriverAsync(driverModel);
                 var driverDto = _mapper.Map<DriverDto>(driverCreate);
                 return driverDto;
