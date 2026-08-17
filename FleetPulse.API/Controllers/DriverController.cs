@@ -52,7 +52,7 @@ namespace FleetPulse.API.Controllers
         public async Task<IActionResult> DeleteDriver([FromRoute] int id){
             var driverDelete = await _driverService.DeleteDriverAsync(id);
             if(driverDelete == null) return NotFound();
-            return Ok(driverDelete);
+            return NoContent();
         }
 
 

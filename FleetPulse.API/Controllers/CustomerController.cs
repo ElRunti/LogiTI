@@ -1,8 +1,6 @@
 ﻿using FleetPulse.API.DTOs.Customer;
 using FleetPulse.API.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Security.Cryptography;
 
 namespace FleetPulse.API.Controllers
 {
@@ -26,7 +24,7 @@ namespace FleetPulse.API.Controllers
         public async Task<IActionResult> GetCustomerById([FromRoute] int id)
         {
             var customerFind = await _customerService.GetCustomerByIdAsync(id);
-            if (customerFind == null) return BadRequest();
+            if (customerFind == null) return NotFound();
             return Ok(customerFind);
         }
 
@@ -35,7 +33,7 @@ namespace FleetPulse.API.Controllers
         {
             var createCustomer = await _customerService.CreateCustomerAsync(customerCreateDto);
             if (createCustomer == null) return BadRequest();
-            return Created($"api/customer/{createCustomer}", createCustomer);
+            return Created($"api/customer/{createCustomer.IdCustomer}", createCustomer);
         }
 
         [HttpPut("{id}")]
@@ -51,7 +49,7 @@ namespace FleetPulse.API.Controllers
         {
             var deleteCustomer = await _customerService.DeleteCustomerAsync(id);
             if (!deleteCustomer) return BadRequest();
-            return Ok(deleteCustomer);
+            return NoContent();
         }
 
 
