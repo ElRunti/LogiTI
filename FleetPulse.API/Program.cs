@@ -1,8 +1,13 @@
 using AutoMapper;
 using FleetPulse.API.Data;
 using FleetPulse.API.Mappings;
+using FleetPulse.API.Repositories.Contracts;
+using FleetPulse.API.Repositories.Implementations;
+using FleetPulse.API.Services.Contracts;
+using FleetPulse.API.Services.Implementations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +25,18 @@ builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<MappingProfile>();
 });
+
+//add Services to the service container
+builder.Services.AddScoped<IDriverService, DriverService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder .Services.AddScoped<IPackageService, PackageService>();
+builder.Services.AddScoped<IDeliveryService, DeliveryService>();
+
+//add Repositorys to the service container
+builder.Services.AddScoped<IDriverRepository, DriverRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IPackageRepository, PackageRepository>();
+builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
 
 var app = builder.Build();
 
