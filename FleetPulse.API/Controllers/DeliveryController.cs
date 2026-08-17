@@ -35,7 +35,7 @@ namespace FleetPulse.API.Controllers
         {
             var createDelivery = await _deliveryService.CreateDeliveryAsync(deliveryCreateDto);
             if (createDelivery == null) return BadRequest();
-            return Ok(createDelivery);
+            return Created($"api/delivery/{createDelivery.IdDelivery}", createDelivery);
         }
 
         [HttpPut ("{id}")]
