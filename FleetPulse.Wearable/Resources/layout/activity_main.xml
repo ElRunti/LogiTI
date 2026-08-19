@@ -1,19 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.wear.widget.BoxInsetLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/box_inset_layout_padding"
-    tools:deviceIds="wear">
-    <FrameLayout
+    android:background="#121212">
+
+	<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/inner_frame_layout_padding"
-        app:boxedEdges="all">
-        <TextView
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="8dp">
+
+		<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_text" />
-    </FrameLayout>
+            android:text="FLEETPULSE"
+            android:textColor="#888888"
+            android:textSize="10sp"/>
+
+		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+
+			<LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+				<TextView
+                    android:id="@+id/tvDelivered"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6"
+                    android:textColor="#4CAF50"
+                    android:textSize="28sp"/>
+
+				<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Realizadas"
+                    android:textColor="#4CAF50"
+                    android:textSize="9sp"/>
+			</LinearLayout>
+
+			<View
+                android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:background="#333333"
+                android:layout_marginHorizontal="12dp"/>
+
+			<LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+				<TextView
+                    android:id="@+id/tvPending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textColor="#F44336"
+                    android:textSize="28sp"/>
+
+				<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pendientes"
+                    android:textColor="#F44336"
+                    android:textSize="9sp"/>
+			</LinearLayout>
+		</LinearLayout>
+
+		<ProgressBar
+            android:id="@+id/progressDelivery"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="8dp"
+            android:progress="60"
+            android:max="100"
+            android:progressTint="#4CAF50"
+            android:progressBackgroundTint="#1e1e1e"/>
+
+		<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="60% completado"
+            android:textColor="#555555"
+            android:textSize="8sp"
+            android:layout_marginTop="4dp"/>
+
+	</LinearLayout>
 </androidx.wear.widget.BoxInsetLayout>
