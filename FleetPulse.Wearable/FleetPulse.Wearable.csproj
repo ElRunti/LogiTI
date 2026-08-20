@@ -19,6 +19,7 @@
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Xamarin.AndroidX.ViewPager2" Version="1.1.0.11" />
     <PackageReference Include="Xamarin.AndroidX.Wear" Version="1.3.0.10" />
   </ItemGroup>
 </Project>
