@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace FleetPulse.Wearable.Models
 {
-    internal class ConfirmStats
+    public class ConfirmStats
     {
+        public int PackageId { get; set; }
+        public string TrackingNumber { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }
