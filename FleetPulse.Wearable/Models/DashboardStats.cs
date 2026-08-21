@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace FleetPulse.Wearable.Models
 {
-    internal class DeliveryStats
+    internal class DashboardStats
     {
+
     }
 }
