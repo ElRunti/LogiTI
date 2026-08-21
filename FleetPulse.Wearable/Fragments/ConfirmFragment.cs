@@ -14,6 +14,12 @@ namespace FleetPulse.Wearable.Fragments
         private int _pendingDeliveryId;
         private const string BaseUrl = "http://192.168.1.66:5245";
 
+        public override void OnResume()
+        {
+            base.OnResume();
+            _ = LoadPendingDelivery();
+        }
+
         public override View? OnCreateView(LayoutInflater inflater, ViewGroup? container, Bundle? savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.fragment_confirm, container, false);
@@ -77,6 +83,8 @@ namespace FleetPulse.Wearable.Fragments
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
+
+
         }
     }
 }

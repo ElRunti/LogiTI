@@ -10,6 +10,11 @@ namespace FleetPulse.Wearable.Fragments
     {
         private LinearLayout _container;
         private const string BaseUrl = "http://192.168.1.66:5245";
+        public override void OnResume()
+        {
+            base.OnResume();
+            _ = LoadDeliveries();
+        }
 
         public override View? OnCreateView(LayoutInflater inflater, ViewGroup? container, Bundle? savedInstanceState)
         {

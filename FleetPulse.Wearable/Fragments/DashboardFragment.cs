@@ -14,6 +14,11 @@ namespace FleetPulse.Wearable.Fragments
         private TextView _tvProgress;
 
         private const string BaseUrl = "http://192.168.1.66:5245";
+        public override void OnResume()
+        {
+            base.OnResume();
+            _ = LoadDashboardStats();
+        }
 
         public override View? OnCreateView(LayoutInflater inflater, ViewGroup? container, Bundle? savedInstanceState)
         {
