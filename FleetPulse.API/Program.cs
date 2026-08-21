@@ -40,6 +40,7 @@ builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
 
 //don't require UTC format in request 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+builder.WebHost.UseUrls("http://0.0.0.0:8080");
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,7 +50,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
