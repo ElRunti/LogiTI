@@ -40,6 +40,7 @@ builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
 
 //don't require UTC format in request 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 builder.WebHost.UseUrls("http://0.0.0.0:8080");
 var app = builder.Build();
 
@@ -55,5 +56,5 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapGet("/health", () => Results.Ok("healthy"));
 app.Run();
